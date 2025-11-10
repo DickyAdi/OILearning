@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+from ai.llm.client.chatbot import OAIEmbeddingClient
 
 load_dotenv()  # Load .env automatically
 
@@ -15,11 +15,8 @@ class Embedder:
                 "ENV ERROR: EMBEDDING_API_BASE or EMBEDDING_API_KEY not set in environment."
             )
 
-        self.client = OpenAI(base_url=self.base_url, api_key=self.api_key)
+        self.client = OAIEmbeddingClient(base_url=self.base_url, api_key=self.api_key, model=self.model)
 
     def embed(self, text):
-        res = self.client.embeddings.create(
-            model=self.model,
-            input=text
-        )
-        return res.data[0].embedding
+        res_embedding = self.client.embed(query=text)
+        return res_embedding
