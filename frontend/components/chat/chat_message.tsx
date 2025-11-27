@@ -1,6 +1,4 @@
-import { memo, useEffect, useMemo } from "react";
-import { ChatAIThinking } from "./loading";
-import { useIsThinking, useStreamingMessageId } from "@/hooks/useChat";
+import { memo } from "react";
 
 
 const ChatMessage = memo(function ChatMessage({id, role, message} : {id:string, role:'assistant' | 'user', message:string}) {
@@ -10,14 +8,14 @@ const ChatMessage = memo(function ChatMessage({id, role, message} : {id:string, 
     <>
       {role === "assistant" ? (
           <div className="flex flex-col justify-start">
-            <div className="p-3 max-w-[80%] rounded-xl" id={id}>
+            <div className="p-3 max-w-[80%] rounded-xl wrap-break-word" id={id}>
               {message}
             </div>
           </div>
       ) : (
         <div className="flex justify-end">
           <div
-            className="p-3 max-w-[80%] dark:bg-neutral-900 bg-zinc-200 rounded-xl"
+            className="p-3 max-w-[80%] dark:bg-neutral-900 bg-zinc-200 rounded-xl wrap-break-word"
             id={id}
           >
             {message}
